@@ -145,7 +145,7 @@ _G.packer_plugins = {
     url = "https://github.com/williamboman/mason.nvim"
   },
   monokai = {
-    config = { "\27LJ\2\n½\1\0\0\3\0\t\0\0176\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0'\1\5\0=\1\4\0006\0\0\0009\0\3\0)\1\1\0=\1\6\0006\0\0\0009\0\3\0'\1\b\0=\1\a\0K\0\1\0\tnone\30sonokai_column_background#sonokai_transparent_background\fdefault\18sonokai_style\6g\24colorscheme monokai\bcmd\bvim\0" },
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\28colorscheme monokai_pro\bcmd\bvim\0" },
     loaded = true,
     path = "C:\\Users\\hwpe\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\monokai",
     url = "https://github.com/tanvirtin/monokai.nvim"
@@ -216,7 +216,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: monokai
 time([[Config for monokai]], true)
-try_loadstring("\27LJ\2\n½\1\0\0\3\0\t\0\0176\0\0\0009\0\1\0'\2\2\0B\0\2\0016\0\0\0009\0\3\0'\1\5\0=\1\4\0006\0\0\0009\0\3\0)\1\1\0=\1\6\0006\0\0\0009\0\3\0'\1\b\0=\1\a\0K\0\1\0\tnone\30sonokai_column_background#sonokai_transparent_background\fdefault\18sonokai_style\6g\24colorscheme monokai\bcmd\bvim\0", "config", "monokai")
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\28colorscheme monokai_pro\bcmd\bvim\0", "config", "monokai")
 time([[Config for monokai]], false)
 -- Config for: trouble.nvim
 time([[Config for trouble.nvim]], true)
