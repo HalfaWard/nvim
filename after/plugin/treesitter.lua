@@ -1,8 +1,7 @@
 require('nvim-treesitter.install').prefer_git = true
-require'nvim-treesitter.install'.compilers = { 'gcc' }
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all"
-    ensure_installed = { 'c', 'c_sharp', 'vimdoc', 'lua', 'rust', 'html', 'javascript', 'markdown_inline'},
+    ensure_installed = { 'c_sharp', 'vimdoc', 'lua', 'rust', 'html', 'javascript', 'markdown_inline'},
 
     -- Install parsers synchronously (only applied to 'ensure_installed')
     sync_install = false,

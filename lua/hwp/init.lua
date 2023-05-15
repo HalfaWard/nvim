@@ -1,5 +1,6 @@
 require('hwp.set')
 require('hwp.remap')
+require('hwp.packer')
 
 local augroup = vim.api.nvim_create_augroup
 local hwpGroup = augroup('hwp', {})

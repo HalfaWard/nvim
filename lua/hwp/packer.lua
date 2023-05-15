@@ -1,9 +1,17 @@
-
 -- This file can be loaded by calling 'lua require('plugins')' from your init.vim
 
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        vim.cmd.packadd('packer.nvim')
+        return true
+    end
+    return false
+end
 
--- Only required if you have packer configured as 'opt'
-vim.cmd.packadd('packer.nvim')
+local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
 	-- Packer can manage itself
@@ -32,26 +40,32 @@ return require('packer').startup(function(use)
 		end
 	})
 
+    -- Treesitter
 	use({'nvim-treesitter/nvim-treesitter', run = ":TSUpdate"})
 	use('nvim-treesitter/playground')
 	use('nvim-treesitter/nvim-treesitter-context')
+    -- Harpoon
 	use('theprimeagen/harpoon')
+    -- Undotree
 	use('mbbill/undotree')
+    -- Fugitive for Git
 	use('tpope/vim-fugitive')
+    -- Find
     use('sharkdp/fd')
-    use{
-        'williamboman/mason.nvim',
-        run = ':MasonUpdate'
-    }
+    -- LuaLine
+    use('nvim-lualine/lualine.nvim')
+    -- Nvim Tree
+    use('nvim-tree/nvim-tree.lua')
+    use('nvim-tree/nvim-web-devicons')
 
+    -- LSP Zero
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
 		requires = {
 			-- LSP Support
 			{'neovim/nvim-lspconfig'},
-            {
-                'williamboman/mason.nvim',
+            {'williamboman/mason.nvim',
                 run = function()
                     pcall(vim.cmd, 'MasonUpdate')
                 end,
@@ -71,11 +85,16 @@ return require('packer').startup(function(use)
 			{'rafamadriz/friendly-snippets'},
 		}
 	}
-	
+    -- Zen mode
 	use('folke/zen-mode.nvim')
+
 	-- use('github/copilot.vim')
 	use('eandrju/cellular-automaton.nvim')
 	use('laytan/cloak.nvim')
+
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
 
 
