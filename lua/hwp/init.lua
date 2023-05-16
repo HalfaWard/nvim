@@ -1,6 +1,6 @@
 require('hwp.set')
 require('hwp.remap')
-require('hwp.packer')
+require('hwp.plugins')
 
 local augroup = vim.api.nvim_create_augroup
 local hwpGroup = augroup('hwp', {})
@@ -8,7 +8,7 @@ local hwpGroup = augroup('hwp', {})
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HiglightYank', {})
 
-require('mason').setup()
+-- require('mason').setup()
 
 function R(name)
 	require('plenary.reload').reload_module(name)

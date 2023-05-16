@@ -1,7 +1,6 @@
 local lsp = require('lsp-zero').preset({})
 
 lsp.ensure_installed({
-    'tsserver',
     'rust_analyzer',
 })
 

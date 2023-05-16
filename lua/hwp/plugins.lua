@@ -14,8 +14,6 @@ if not vim.loop.fs_stat(lazypath) then
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	-- Packer can manage itself
-	'wbthomason/packer.nvim',
 	{
 		'nvim-telescope/telescope.nvim', 
         tag = '0.1.0',
@@ -51,11 +49,17 @@ local plugins = {
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
 
+    -- Mason
+    --{
+    --    'williamboman/mason.nvim',
+    --    build = ':MasonUpdate',
+    --}
+
     -- LSP Zero
 	{
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
-		requires = {
+		dependencies = {
 			-- LSP Support
 			{'neovim/nvim-lspconfig'},
             {'williamboman/mason.nvim',
@@ -67,9 +71,9 @@ local plugins = {
 
 			-- Autocompletion
 			{'hrsh7th/nvim-cmp'},
+			{'hrsh7th/cmp-nvim-lsp'},
 			{'hrsh7th/cmp-buffer'},
 			{'hrsh7th/cmp-path'},
-			{'hrsh7th/cmp-nvim-lsp'},
 			{'hrsh7th/cmp-nvim-lua'},
 			{'saadparwaiz1/cmp_luasnip'},
 
