@@ -1,7 +1,7 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{ "folke/neoconf.nvim", cmd = "Neoconf", config = true },
 			{ "folke/neodev.nvim", config = true },
@@ -18,6 +18,9 @@ return {
 			require("plugins.lsp.servers").setup(plugin)
 		end,
 	},
+  {
+    "hoffs/omnisharp-extended-lsp.nvim",
+  },
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
@@ -53,12 +56,12 @@ return {
 	},
 	{
 		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
 		event = "VeryLazy",
 		dependencies = {
-			"neovim/nvim-lspconfig",
 			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons",
 		},
-		config = true,
 	},
 }
