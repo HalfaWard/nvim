@@ -1,18 +1,26 @@
 return {
 	"nvim-lua/plenary.nvim",
 	"MunifTanjim/nui.nvim",
-	{ "stevearc/dressing.nvim", event = "VeryLazy", config = true },
-	{ "rcarriga/nvim-notify", event = "VeryLazy", enabled = true, config = { default = true } },
+	{
+		"stevearc/dressing.nvim",
+		event = "VeryLazy",
+		config = true,
+	},
+	{
+		"rcarriga/nvim-notify",
+		event = "VeryLazy",
+		enabled = true,
+		config = function()
+			require("notify").setup({
+				background_colour = "#000000",
+			})
+			vim.notify = require("notify")
+		end,
+	},
 	{
 		"sindrets/diffview.nvim",
 		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
 		config = true,
-	},
-	{
-		"TimUntersberger/neogit",
-		cmd = "Neogit",
-		config = { integrations = { diffview = true } },
-		keys = { { "<leader>gs", "<cmd>Neogit kind=floating<cr>", desc = "Status" } },
 	},
 	{
 		"monaqa/dial.nvim",
