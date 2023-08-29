@@ -5,7 +5,7 @@ local servers = {
 		handlers = {
 			["textDocument/definition"] = require("omnisharp_extended").handler,
 		},
-		cmd = { "" },
+		-- cmd = {},
 	},
 	rust_analyzer = {
 		settings = {

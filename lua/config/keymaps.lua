@@ -44,4 +44,5 @@ keymap("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
 keymap("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
 
 -- Buffer movement
-keymap("n", "<A-h>", "<cmd>")
+keymap("n", "a-h>", "<cmd>vertical resize -2<CR>")
+keymap("n", "a-l>", "<cmd>vertical resize +2<CR>")

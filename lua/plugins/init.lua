@@ -23,22 +23,21 @@ return {
 		config = true,
 	},
 	{
-		"monaqa/dial.nvim",
-		event = "BufReadPre",
-		config = function()
-			vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
-			vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
-			vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
-			vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
-			vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
-			vim.api.nvim_set_keymap("v", "<gC-x>", require("dial.map").dec_gvisual(), { noremap = true })
-		end,
-	},
-	{
 		"fei6409/log-highlight.nvim",
 		event = "BufReadPre",
 		config = function()
 			require("log-highlight").setup({})
 		end,
+	},
+	{
+		"cbochs/portal.nvim",
+		dependencies = {
+			"cbochs/grapple.nvim",
+			"theprimeagen/harpoon",
+		},
+		keys = {
+			{ "<leader>i", mode = "n", "<cmd>Portal jumplist backward<cr>" },
+			{ "<leader>o", mode = "n", "<cmd>Portal jumplist forward<cr>" },
+		},
 	},
 }
