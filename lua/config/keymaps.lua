@@ -1,48 +1,42 @@
-local keymap = vim.keymap.set
+local map = vim.keymap.set
 
 -- Remap for dealing with word wrap
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Better viewing
-keymap("n", "n", "nzzzv")
-keymap("n", "N", "Nzzzv")
-keymap("n", "g,", "g,zvzz")
-keymap("n", "g;", "g;zvzz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+map("n", "g,", "g,zvzz")
+map("n", "g;", "g;zvzz")
 
 -- Better escape using jk in terminnal mode
-keymap("t", "jk", "<C-\\><C-n>")
-keymap("t", "<C-h>", "<C-\\><C-n><C-w>h")
-keymap("t", "<C-j>", "<C-\\><C-n><C-w>j")
-keymap("t", "<C-k>", "<C-\\><C-n><C-w>k")
-keymap("t", "<C-l>", "<C-\\><C-n><C-w>l")
+map("t", "jk", "<C-\\><C-n>")
+map("t", "<C-h>", "<C-\\><C-n><C-w>h")
+map("t", "<C-j>", "<C-\\><C-n><C-w>j")
+map("t", "<C-k>", "<C-\\><C-n><C-w>k")
+map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- Add undo break-points
-keymap("i", ",", ",<c-g>u")
-keymap("i", ".", ".<c-g>u")
-keymap("i", ";", ";<c-g>u")
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")
 
 -- Better indent
-keymap("v", "<", "<gv")
-keymap("v", ">", ">gv")
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- Paste over currently selected text without yanking it
-keymap("v", "p", '"_dP')
+map("v", "p", '"_dP')
 
 -- Move lines
-keymap("n", "<A-j>", ":m .+1<CR>==")
-keymap("v", "<A-j>", ":m '>+1<CR>gv==gv")
-keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
-keymap("n", "<A-k>", ":m .-2<CR>==")
-keymap("v", "<A-k>", ":m '<-2<CR>gv==gv")
-keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
+map("n", "<A-j>", ":m .+1<CR>==")
+map("v", "<A-j>", ":m '>+1<CR>gv==gv")
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
+map("n", "<A-k>", ":m .-2<CR>==")
+map("v", "<A-k>", ":m '<-2<CR>gv==gv")
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
 
 -- Resize window using <shift> arrow keys
-keymap("n", "<S-Up>", "<cmd>resize +2<CR>")
-keymap("n", "<S-Down>", "<cmd>resize -2<CR>")
-keymap("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
-keymap("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
-
--- Buffer movement
-keymap("n", "a-h>", "<cmd>vertical resize -2<CR>")
-keymap("n", "a-l>", "<cmd>vertical resize +2<CR>")
+map("n", "<a-h>", "<cmd>vertical resize +2<CR>")
+map("n", "<a-l>", "<cmd>vertical resize -2<CR>")

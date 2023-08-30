@@ -44,6 +44,34 @@ return {
 				end,
 				desc = "Nav File 4",
 			},
+			{
+				"<BS>j",
+				function()
+					require("harpoon.ui").nav_file(1)
+				end,
+				desc = "Nav File 1",
+			},
+			{
+				"<BS>k",
+				function()
+					require("harpoon.ui").nav_file(2)
+				end,
+				desc = "Nav File 2",
+			},
+			{
+				"<BS>l",
+				function()
+					require("harpoon.ui").nav_file(3)
+				end,
+				desc = "Nav File 3",
+			},
+			{
+				"<BS>;",
+				function()
+					require("harpoon.ui").nav_file(4)
+				end,
+				desc = "Nav File 4",
+			},
 		},
 		opts = {
 			global_settings = {

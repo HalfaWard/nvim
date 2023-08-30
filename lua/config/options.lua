@@ -1,4 +1,4 @@
-local indent = 2
+local indent = 4
 
 vim.o.formatoptions = "jcroqlnt"
 vim.o.shortmess = "filnxtToOFWIcC"

@@ -1,11 +1,14 @@
 local M = {}
 
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/path/to/omnisharp/omnisharp.exe"
+
 local servers = {
 	omnisharp = {
 		handlers = {
 			["textDocument/definition"] = require("omnisharp_extended").handler,
 		},
-		-- cmd = {},
+		cmd = { omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) },
 	},
 	rust_analyzer = {
 		settings = {
