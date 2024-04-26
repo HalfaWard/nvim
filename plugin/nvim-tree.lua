@@ -4,7 +4,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		lazy = false,
 		keys = {
-			{ "<leader>n", ":NvimTreeOpen<CR>", desc = "Open nvim-tree" },
+			{ "<leader>n", "<cmd>NvimTreeOpen<cr>", desc = "Open nvim-tree" },
 		},
 		config = function()
 			vim.g.loaded_netrw = 1
