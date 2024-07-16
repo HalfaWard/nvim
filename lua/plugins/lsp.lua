@@ -1,20 +1,21 @@
-return { -- LSP Configuration & Plugins
+return {
+  -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    { 'j-hui/fidget.nvim', opts = {} },
+    'hrsh7th/nvim-cmp',
+    'Hoffs/omnisharp-extended-lsp.nvim',
 
-    -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    { 'folke/neodev.nvim', opts = {} },
+    { 'j-hui/fidget.nvim', opts = {}},
+    { 'folke/neodev.nvim', opts = {}},
   },
   config = function()
     --  This function gets run when an LSP attaches to a particular buffer.
     vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+      group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
       callback = function(event)
 
         local map = function(keys, func, desc)
@@ -23,6 +24,9 @@ return { -- LSP Configuration & Plugins
 
         -- Jump to the definition of the word under your cursor. to jump back, press <C-t>.
         map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
+        -- Show the incoming calls to the function under your cursor.
+        -- map('gD', vim.lsp.buf.incoming_calls(), '[G]oto [D]eclaration')
 
         -- Find references for the word under your cursor.
         map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -36,7 +40,7 @@ return { -- LSP Configuration & Plugins
         --  the definition of its *type*, not where it was *defined*.
         map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
 
-        -- Fuzzy find all the symbols in your current document.
+        -- Fuzzy find all the symbols in your curret document.
         --  Symbols are things like variables, functions, types, etc.
         map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
@@ -56,8 +60,6 @@ return { -- LSP Configuration & Plugins
         --  See `:help K` for why this keymap.
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-        -- WARN: This is not Goto Definition, this is Goto Declaration.
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
@@ -76,71 +78,93 @@ return { -- LSP Configuration & Plugins
       end,
     })
 
-    -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
-    --  Add any additional override configuration in the following tables. Available keys are:
-    --  - cmd (table): Override the default command used to start the server
-    --  - filetypes (table): Override the default list of associated filetypes for the server
-    --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-    --  - settings (table): Override the default settings passed when initializing the server.
-    --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+    local rounded_border_handlers = {
+      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+    }
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    -- Some languages (like typescript) have entire language plugins that can be useful:
-    --    https://github.com/pmizio/typescript-tools.nvim
-    -- But for many setups, the LSP (`tsserver`) will work just fine
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
+      -- General
       pyright = {},
       rust_analyzer = {},
-      -- tsserver = {},
-      omnisharp = {},
+
+      -- NodeJS
+      tsserver = {},
+      eslint = {},
+      tailwindcss = {},
+
+      -- C#
+      omnisharp = {
+        root_dir = function (fname)
+          local lspconfig = require('lspconfig')
+          local primary = lspconfig.util.root_pattern("*.sln")(fname)
+          local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
+          return primary or fallback
+        end,
+        settings = {
+          FormattingOptions = {
+            enableEditorConfigSupport = false,
+            organizeImportsOnFormat = false,
+          },
+          RozlynExtensionsOptions = {
+            enableAnalyzersSupport = true,
+            enableImportCompletion = true,
+            enableDecompilationSupport = true,
+          }
+        },
+        filetypes = { 'cs', 'vb', 'csproj', 'sln', 'slnx', 'props', 'csx', 'targets', 'cshtml', 'razor' },
+        on_attach = function (_, bufnr)
+          vim.keymap.set('n', 'gd', require('omnisharp_extended').lsp_definition, {noremap = true, silent = true, buffer = bufnr, desc = "LSP [G]o to [D]efinition csharp"})
+          vim.keymap.set('n', 'gr', require('omnisharp_extended').lsp_references, {noremap = true, silent = true, buffer = bufnr, desc = "LSP [G]o to [R]eferences csharp"})
+          vim.keymap.set('n', 'gi', require('omnisharp_extended').lsp_implementation, {noremap = true, silent = true, buffer = bufnr, desc = "LSP [G]o to [I]mplementation csharp"})
+          vim.keymap.set('n', '<leader>D', require('omnisharp_extended').lsp_type_definition, {noremap = true, silent = true, buffer = bufnr, desc = "LSP TypeDefinition csharp"})
+        end,
+      },
+
+      -- Lua
       lua_ls = {
-        -- cmd = {...},
-        -- filetypes = { ...},
-        -- capabilities = {},
         settings = {
           Lua = {
             completion = {
               callSnippet = 'Replace',
             },
+            diagnostics = {
+              globals = { 'bit','vim', 'describe', 'it', 'before_each', 'after_each' },
+            }
           },
         },
       },
     }
 
-    -- Ensure the servers and tools above are installed
-    --  To check the current status of installed tools and/or manually install
-    --  other tools, you can run
-    --    :Mason
-    --
-    --  You can press `g?` for help in this menu.
     require('mason').setup()
 
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
-    })
+      'stylua',
+      'yaml-language-server',
+      'dockerfile-language-server',
+      'docker-compose-language-service',
+      'json-lsp',
+      'html-lsp',
+      'powershell-editor-services',
+      'js-debug-adapter',
+      'typescript-language-server',
+      'eslint-lsp',
+      'tailwindcss-language-server',
+    }
+    )
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          server.handlers = vim.tbl_deep_extend('force', rounded_border_handlers, server.handlers or {})
           require('lspconfig')[server_name].setup(server)
         end,
       },

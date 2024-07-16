@@ -11,15 +11,15 @@ return {
         },
         config = function()
             local neotest = require("neotest")
-            neotest.setup({
-                adapters = {
+            neotest.setup({})
+                -- adapters = {
                     -- require("neotest-plenary"),
                     -- require("neotest-vim-test")({
                         -- ignore_file_types = { "python", "vim", "lua" },
                     -- }),
                     -- require("neotest-dotnet"),
-                }
-            })
+                -- }
+            -- })
 
             vim.keymap.set("n", "<leader>tc", function()
                 neotest.run.run()

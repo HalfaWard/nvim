@@ -22,6 +22,17 @@ map("t", "<C-j>", "<C-\\><C-n><C-w>j")
 map("t", "<C-k>", "<C-\\><C-n><C-w>k")
 map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
+-- Keybinds to make split navigation easier.
+--  Use CTRL+<hjkl> to switch between windows
+map("n", "<C-H>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-L>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-J>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-K>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- Jump back and forth in jump list
+map("n", "<C-h>", "<C-o>", { desc = "Jump forwards" })
+map("n", "<C-l>", "<C-i>", { desc = "Jump backwards" })
+
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
@@ -35,8 +46,10 @@ map("v", ">", ">gv")
 map("v", "p", '"_dP')
 
 -- Resize window using <shift> arrow keys
-map("n", "<a-h>", "<cmd>vertical resize +2<CR>")
-map("n", "<a-l>", "<cmd>vertical resize -2<CR>")
+map("n", "<M-H>", "<cmd>vertical resize +4<CR>")
+map("n", "<M-L>", "<cmd>vertical resize -4<CR>")
+map("n", "<M-K>", "<cmd>horizontal resize +4<CR>")
+map("n", "<M-J>", "<cmd>horizontal resize -4<CR>")
 
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 -- Clear search highlight on pressing <Esc> in normal mode
@@ -62,9 +75,3 @@ map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
-map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })

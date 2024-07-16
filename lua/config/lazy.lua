@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	spec = "hwp.plugins",
+	spec = {{ import = "plugins" }},
+	checker = { enabled = true },
 	change_detection = { notify = false },
 })
