@@ -28,8 +28,9 @@ opt.hlsearch = true
 opt.splitright = true
 opt.splitbelow = true
 opt.scrolloff = 50
-opt.shiftwidth = 4
-opt.tabstop = 4
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.expandtab = true
 opt.confirm = true
 opt.laststatus = 3
 opt.pumblend = 10
@@ -42,16 +43,16 @@ opt.inccommand = "split"
 opt.guicursor = {
 	"n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50",
 	"a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
-    "sm:block-blinkwait175-blinkoff150-blinkon175",
+	"sm:block-blinkwait175-blinkoff150-blinkon175",
 }
 
 -- Set shell to Powershell
 if vim.fn.has("win64") == 1 then
-	opt.shell='pwsh -NoLogo -CustomPipeName nvim'
-	opt.shellcmdflag=
-		'-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+	opt.shell = "pwsh -NoLogo -CustomPipeName nvim"
+	opt.shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
 	opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
 	opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-	opt.shellquote=''
-	opt.shellxquote=''
+	opt.shellquote = ""
+	opt.shellxquote = ""
 end

@@ -24,14 +24,14 @@ map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
-map("n", "<C-H>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-map("n", "<C-L>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-map("n", "<C-J>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-map("n", "<C-K>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+-- map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+-- map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+-- map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Jump back and forth in jump list
-map("n", "<C-h>", "<C-o>", { desc = "Jump forwards" })
-map("n", "<C-l>", "<C-i>", { desc = "Jump backwards" })
+map("n", "<S-l>", "<C-i>", { desc = "Jump forwards" })
+map("n", "<S-h>", "<C-o>", { desc = "Jump backwards" })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")

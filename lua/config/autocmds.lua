@@ -15,8 +15,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Chack if we need to reload the file when it changed
-vim.api.nvim_create_autocmd(
-	{'FocusGained', 'TermClose', 'TermLeave' },{
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 	group = augroup('checktime', {}),
 	callback = function()
 		if vim.o.buftype ~= 'nofile' then
@@ -29,15 +28,23 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd('BufReadPre', {
 	group = augroup('last_loc', {}),
 	pattern = '*',
-	callback = function ()
-		vim.api.nvim_create_autocmd('FileType',{
+	callback = function()
+		vim.api.nvim_create_autocmd('FileType', {
 			pattern = '<buffer>',
 			once = true,
-			callback = function ()
-				vim.cmd(
-					[[if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]]
-				)
+			callback = function()
+				vim.cmd([[if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]])
 			end,
 		})
+	end,
+})
+
+-- Auto-save
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'FocusLost', 'TextChanged' }, {
+	group = augroup('auto-save', {}),
+	callback = function()
+		if vim.bo.modified then
+			vim.cmd('silent! write')
+		end
 	end,
 })

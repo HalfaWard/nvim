@@ -4,7 +4,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		lazy = false,
 		keys = {
-			{ "<leader>n", ":NvimTreeOpen<CR>", desc = "Open nvim-tree" },
+			{ "<leader>n", "<cmd>NvimTreeOpen<CR>", desc = "Open nvim-tree" },
 		},
 		config = function()
 			vim.g.loaded_netrw = 1
@@ -20,7 +20,7 @@ return {
 				view = {
 					adaptive_size = true,
 					float = {
-						enable = true,
+						enable = false,
 						quit_on_focus_loss = true,
 						open_win_config = {
 							relative = "editor",

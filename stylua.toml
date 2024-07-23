@@ -1,0 +1,4 @@
+indent_type = 'Tabs'
+quote_style = 'AutoPreferSingle'
+indent_width = 4
+column_width = 150
